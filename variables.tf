@@ -6,7 +6,7 @@
 # subnet_id - The ID of the subnet that the virtual server instance uses.
 ##############################################################################
 variable "subnet_id"{
-  default = "0717-9323c0b2-eb17-4d25-bb27-a4406f5a6eda"
+  default = ""
   description = "The ID of the subnet within the VPC that the virtual server instance uses. Required for users to specify."
 }
 
