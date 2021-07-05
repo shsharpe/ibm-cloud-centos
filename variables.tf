@@ -14,7 +14,7 @@ variable "subnet_id"{
 # ssh_key_name - The name of the public SSH key used to create the virtual server instance.
 ##############################################################################
 variable "ssh_key_name" {
-  default     = "shawns-key"
+  default     = ""
   description = "The name of the public SSH key to use when creating the virtual server instance. Required for users to specify."
 }
 
@@ -22,7 +22,7 @@ variable "ssh_key_name" {
 # vsi_instance_name - The name of the virtual server instance.
 ##############################################################################
 variable "vsi_instance_name" {
-  default     = "plesk-centos-8-test1"
+  default     = "plesk-centos-8"
   description = "The name of the virtual server instance. Required for users to specify."
 }
 
@@ -52,7 +52,7 @@ variable "region" {
 # vsi_security_group - The security group to which the virtual server instance interface belongs to.
 ##############################################################################
 variable "vsi_security_group" {
-  default     = "plesk-group-test-1"
+  default     = ""
   description = "The name of the security group that is created. Required for users to specify."
 }
 
