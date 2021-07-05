@@ -62,6 +62,6 @@ variable "TF_VERSION" {
 }
 
 variable "floating_ip" {
-  default = "plesk_floating_ip"
+  default = "plesk-floating-ip"
   description = "Public floating IP needed for internet access"
 }
