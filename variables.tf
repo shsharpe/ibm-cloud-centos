@@ -60,3 +60,8 @@ variable "TF_VERSION" {
  default = "0.12"
  description = "The version of the Terraform engine that's used in the Schematics workspace."
 }
+
+variable "floating_ip" {
+  default = "plesk_floating_ip"
+  description = "Public floating IP needed for internet access"
+}

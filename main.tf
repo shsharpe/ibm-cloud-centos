@@ -299,8 +299,7 @@ resource "ibm_is_instance" "plesk_vsi" {
 }
 
 resource "ibm_is_floating_ip" "plesk_floatingip" {
-  name = "pleskfloatip1"
+  name = var.floating_ip
   target = ibm_is_instance.plesk_vsi.primary_network_interface[0].id
 }
-
 
