@@ -1,5 +1,5 @@
 # Plesk IBM Cloud Terraform Template
-This repository containes the Terraform template used to deploly Plesk to IBM Cloud. This OS of the image this template uses is CentOS 8.
+This repository containes the Terraform template used to deploly Plesk to IBM Cloud. This image used by this template contains CentOS 8 with Plesk pre-installed.
 
 # Variables in variables.tf
 
