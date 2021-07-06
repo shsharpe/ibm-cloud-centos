@@ -39,15 +39,6 @@ variable "region" {
   description = "The region in which the VPC instance is located. Required for users to specify."
 }
 
-#####################################################################################################
-# api_key - The ibm_cloud_api_key which should be used only while testing this code from CLI. 
-# It is not needed while testing from Schematics.
-######################################################################################################
-#variable "api_key" {
-#  default     = ""
-#  description = "The user API key."
-#}
-
 ##############################################################################
 # vsi_security_group - The security group to which the virtual server instance interface belongs to.
 ##############################################################################
