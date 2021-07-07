@@ -50,6 +50,7 @@ resource "ibm_is_subnet" "vsi_subnet"{
    name = "plesk-subnet"
    zone = var.region
    vpc =  ibm_is_vpc.vsi_vpc.id
+   total_ipv4_address_count = "256"
 }
 
 ##############################################################################
