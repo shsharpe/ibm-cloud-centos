@@ -5,10 +5,10 @@
 ##############################################################################
 # subnet_id - The ID of the subnet that the virtual server instance uses.
 ##############################################################################
-variable "subnet_id"{
-  default = ""
-  description = "The ID of the subnet within the VPC that the virtual server instance uses. Required for users to specify."
-}
+//variable "subnet_id"{
+//  default = ""
+//  description = "The ID of the subnet within the VPC that the virtual server instance uses. Required for users to specify."
+//}
 
 ##############################################################################
 # ssh_key_name - The name of the public SSH key used to create the virtual server instance.
