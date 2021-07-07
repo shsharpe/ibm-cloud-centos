@@ -49,7 +49,7 @@ resource "ibm_is_vpc" "vsi_vpc" {
 resource "ibm_is_subnet" "vsi_subnet"{
    name = "plesk-subnet"
    zone = var.region
-   vpc =  data.ibm_is_vpc.vsi_vpc.id
+   vpc =  ibm_is_vpc.vsi_vpc.id
 }
 
 ##############################################################################
@@ -59,8 +59,8 @@ resource "ibm_is_subnet" "vsi_subnet"{
 //security group
 resource "ibm_is_security_group" "vsi_security_group" {
   name           = var.vsi_security_group
-  vpc            = data.ibm_is_subnet.vsi_subnet.vpc
-  resource_group = data.ibm_is_subnet.vsi_subnet.resource_group
+  vpc            = ibm_is_subnet.vsi_subnet.vpc
+  resource_group = ibm_is_subnet.vsi_subnet.resource_group
 }
 
 //security group rule SSH
@@ -293,16 +293,16 @@ resource "ibm_is_instance" "plesk_vsi" {
   name           = var.vsi_instance_name
   image          = local.image_map[var.region]
   profile        = data.ibm_is_instance_profile.vsi_profile.name
-  resource_group = data.ibm_is_subnet.vsi_subnet.resource_group
+  resource_group = ibm_is_subnet.vsi_subnet.resource_group
 
   primary_network_interface {
     name = "eth0"
-    subnet = data.ibm_is_subnet.vsi_subnet.id
+    subnet = ibm_is_subnet.vsi_subnet.id
     security_groups = [ibm_is_security_group.vsi_security_group.id]
   }
   
-  vpc  = data.ibm_is_subnet.vsi_subnet.vpc
-  zone = data.ibm_is_subnet.vsi_subnet.zone
+  vpc  = ibm_is_subnet.vsi_subnet.vpc
+  zone = ibm_is_subnet.vsi_subnet.zone
   keys = [data.ibm_is_ssh_key.vsi_ssh_pub_key.id]
 }
 
