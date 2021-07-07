@@ -38,7 +38,7 @@ data "ibm_is_instance_profile" "vsi_profile" {
 ##############################################################################
 #  - Create subnet
 ##############################################################################
-data "ibm_is_subnet" "vsi_subnet"{
+resource "ibm_is_subnet" "vsi_subnet"{
    name = "plesk-subnet"
 }
 
