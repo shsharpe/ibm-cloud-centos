@@ -43,7 +43,7 @@ variable "region" {
 # vsi_security_group - The security group to which the virtual server instance interface belongs to.
 ##############################################################################
 variable "vsi_security_group" {
-  default     = ""
+  default     = "plesk-security-group"
   description = "The name of the security group that is created. Required for users to specify."
 }
 
