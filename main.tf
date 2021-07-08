@@ -41,7 +41,7 @@ data "ibm_is_instance_profile" "vsi_profile" {
 
 resource "ibm_is_vpc" "vsi_vpc" {
   name = "plesk-vpc"
-  default_security_group_name = var.vsi_security_group
+//  default_security_group_name = var.vsi_security_group
 }
 
 ##############################################################################
@@ -59,7 +59,7 @@ resource "ibm_is_subnet" "vsi_subnet"{
 ##############################################################################
 
 //security group
-data "ibm_is_security_group" "vsi_security_group" {
+resource "ibm_is_security_group" "vsi_security_group" {
   name           = var.vsi_security_group
   vpc            = ibm_is_vpc.vsi_vpc.id
   resource_group = ibm_is_subnet.vsi_subnet.resource_group
