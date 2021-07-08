@@ -41,6 +41,7 @@ data "ibm_is_instance_profile" "vsi_profile" {
 
 resource "ibm_is_vpc" "vsi_vpc" {
   name = "plesk-vpc"
+  default_security_group = ibm_is_security_group.vsi_security_group.id
 }
 
 ##############################################################################
