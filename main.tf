@@ -60,7 +60,7 @@ resource "ibm_is_subnet" "vsi_subnet"{
 //security group
 resource "ibm_is_security_group" "vsi_security_group" {
   name           = var.vsi_security_group
-  vpc            = ibm_is_subnet.vsi_subnet.vpc
+  vpc            = ibm_is_vpc.vsi_vpc.id
   resource_group = ibm_is_subnet.vsi_subnet.resource_group
 }
 
@@ -275,18 +275,6 @@ resource "ibm_is_security_group_rule" "vsi_sg_rule_out_all" {
   direction = "outbound"
   remote    = "0.0.0.0/0"
 }
-
-
-//security group rule to allow all for inbound
-//resource "ibm_is_security_group_rule" "vsi_sg_rule_in_all" {
-//  depends_on = [ibm_is_security_group_rule.vsi_sg_allow_ssh]
-//  group     = ibm_is_security_group.vsi_security_group.id
-//  direction = "inbound"
-//  remote    = "0.0.0.0/0"
-//}
-
-
-
  
 //vsi instance 
 resource "ibm_is_instance" "plesk_vsi" {
