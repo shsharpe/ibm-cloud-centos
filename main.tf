@@ -41,7 +41,7 @@ data "ibm_is_instance_profile" "vsi_profile" {
 
 resource "ibm_is_vpc" "vsi_vpc" {
   name = "plesk-vpc"
-  default_security_group = ibm_is_security_group.vsi_security_group.id
+  default_security_group_name = var.vsi_security_group
 }
 
 ##############################################################################
@@ -59,16 +59,16 @@ resource "ibm_is_subnet" "vsi_subnet"{
 ##############################################################################
 
 //security group
-resource "ibm_is_security_group" "vsi_security_group" {
-  name           = var.vsi_security_group
-  vpc            = ibm_is_vpc.vsi_vpc.id
-  resource_group = ibm_is_subnet.vsi_subnet.resource_group
-}
+//resource "ibm_is_security_group" "vsi_security_group" {
+ // name           = var.vsi_security_group
+ // vpc            = ibm_is_subnet.vsi_subnet.vpc
+ // resource_group = ibm_is_subnet.vsi_subnet.resource_group
+//}
 
 //security group rule SSH
 resource "ibm_is_security_group_rule" "vsi_sg_allow_ssh" {
-  depends_on = [ibm_is_security_group.vsi_security_group]
-  group     = ibm_is_security_group.vsi_security_group.id
+  depends_on = [ibm_is_vpc.vsi_vpc.security_group]
+  group     = ibm_is_vpc.vsi_vpc.security_group.group_id
   direction = "inbound"
   remote     = "0.0.0.0/0"
   tcp {
@@ -79,8 +79,8 @@ resource "ibm_is_security_group_rule" "vsi_sg_allow_ssh" {
 
 //Security Group Rule Plesk Admin HTTPS
 resource "ibm_is_security_group_rule" "vsi_sg_allow_plesk_admin_https" {
-  depends_on = [ibm_is_security_group.vsi_security_group]
-  group     = ibm_is_security_group.vsi_security_group.id
+  depends_on = [ibm_is_vpc.vsi_vpc.security_group]
+  group     = ibm_is_vpc.vsi_vpc.security_group.group_id
   direction = "inbound"
   remote     = "0.0.0.0/0"
   tcp {
@@ -91,8 +91,8 @@ resource "ibm_is_security_group_rule" "vsi_sg_allow_plesk_admin_https" {
 
 //Security Group Rule Plesk Admin HTTP
 resource "ibm_is_security_group_rule" "vsi_sg_allow_plesk_admin_http" {
-  depends_on = [ibm_is_security_group.vsi_security_group]
-  group     = ibm_is_security_group.vsi_security_group.id
+  depends_on = [ibm_is_vpc.vsi_vpc.security_group]
+  group     = ibm_is_vpc.vsi_vpc.security_group.group_id
   direction = "inbound"
   remote     = "0.0.0.0/0"
   tcp {
@@ -103,8 +103,8 @@ resource "ibm_is_security_group_rule" "vsi_sg_allow_plesk_admin_http" {
 
 //Security Group Rule Web Server HTTP
 resource "ibm_is_security_group_rule" "vsi_sg_allow_web_server_http" {
-  depends_on = [ibm_is_security_group.vsi_security_group]
-  group     = ibm_is_security_group.vsi_security_group.id
+  depends_on = [ibm_is_vpc.vsi_vpc.security_group]
+  group     = ibm_is_vpc.vsi_vpc.security_group.group_id
   direction = "inbound"
   remote     = "0.0.0.0/0"
   tcp {
@@ -115,8 +115,8 @@ resource "ibm_is_security_group_rule" "vsi_sg_allow_web_server_http" {
 
 //Security Group Rule Web Server HTTPS
 resource "ibm_is_security_group_rule" "vsi_sg_allow_web_server_https" {
-  depends_on = [ibm_is_security_group.vsi_security_group]
-  group     = ibm_is_security_group.vsi_security_group.id
+  depends_on = [ibm_is_vpc.vsi_vpc.security_group]
+  group     = ibm_is_vpc.vsi_vpc.security_group.group_id
   direction = "inbound"
   remote     = "0.0.0.0/0"
   tcp {
@@ -127,8 +127,8 @@ resource "ibm_is_security_group_rule" "vsi_sg_allow_web_server_https" {
 
 //Security Group Rule FTP
 resource "ibm_is_security_group_rule" "vsi_sg_allow_ftp" {
-  depends_on = [ibm_is_security_group.vsi_security_group]
-  group     = ibm_is_security_group.vsi_security_group.id
+  depends_on = [ibm_is_vpc.vsi_vpc.security_group]
+  group     = ibm_is_vpc.vsi_vpc.security_group.group_id
   direction = "inbound"
   remote     = "0.0.0.0/0"
   tcp {
@@ -139,8 +139,8 @@ resource "ibm_is_security_group_rule" "vsi_sg_allow_ftp" {
 
 //Security Group Rule SMTP
 resource "ibm_is_security_group_rule" "vsi_sg_allow_smtp" {
-  depends_on = [ibm_is_security_group.vsi_security_group]
-  group     = ibm_is_security_group.vsi_security_group.id
+  depends_on = [ibm_is_vpc.vsi_vpc.security_group]
+  group     = ibm_is_vpc.vsi_vpc.security_group.group_id
   direction = "inbound"
   remote     = "0.0.0.0/0"
   tcp {
@@ -150,8 +150,8 @@ resource "ibm_is_security_group_rule" "vsi_sg_allow_smtp" {
 }
 
 resource "ibm_is_security_group_rule" "vsi_sg_allow_smtp_secure" {
-  depends_on = [ibm_is_security_group.vsi_security_group]
-  group     = ibm_is_security_group.vsi_security_group.id
+  depends_on = [ibm_is_vpc.vsi_vpc.security_group]
+  group     = ibm_is_vpc.vsi_vpc.security_group.group_id
   direction = "inbound"
   remote     = "0.0.0.0/0"
   tcp {
@@ -163,8 +163,8 @@ resource "ibm_is_security_group_rule" "vsi_sg_allow_smtp_secure" {
 //security group rule pop3
 
 resource "ibm_is_security_group_rule" "vsi_sg_allow_pop" {
-  depends_on = [ibm_is_security_group.vsi_security_group]
-  group     = ibm_is_security_group.vsi_security_group.id
+  depends_on = [ibm_is_vpc.vsi_vpc.security_group]
+  group     = ibm_is_vpc.vsi_vpc.security_group.group_id
   direction = "inbound"
   remote     = "0.0.0.0/0"
   tcp {
@@ -174,8 +174,8 @@ resource "ibm_is_security_group_rule" "vsi_sg_allow_pop" {
 }
 
 resource "ibm_is_security_group_rule" "vsi_sg_allow_pop_secure" {
-  depends_on = [ibm_is_security_group.vsi_security_group]
-  group     = ibm_is_security_group.vsi_security_group.id
+  depends_on = [ibm_is_vpc.vsi_vpc.security_group]
+  group     = ibm_is_vpc.vsi_vpc.security_group.group_id
   direction = "inbound"
   remote     = "0.0.0.0/0"
   tcp {
@@ -187,8 +187,8 @@ resource "ibm_is_security_group_rule" "vsi_sg_allow_pop_secure" {
 //Security group rule IMAP
 
 resource "ibm_is_security_group_rule" "vsi_sg_allow_imap" {
-  depends_on = [ibm_is_security_group.vsi_security_group]
-  group     = ibm_is_security_group.vsi_security_group.id
+  depends_on = [ibm_is_vpc.vsi_vpc.security_group]
+  group     = ibm_is_vpc.vsi_vpc.security_group.group_id
   direction = "inbound"
   remote     = "0.0.0.0/0"
   tcp {
@@ -198,8 +198,8 @@ resource "ibm_is_security_group_rule" "vsi_sg_allow_imap" {
 }
 
 resource "ibm_is_security_group_rule" "vsi_sg_allow_imap_secure" {
-  depends_on = [ibm_is_security_group.vsi_security_group]
-  group     = ibm_is_security_group.vsi_security_group.id
+  depends_on = [ibm_is_vpc.vsi_vpc.security_group]
+  group     = ibm_is_vpc.vsi_vpc.security_group.group_id
   direction = "inbound"
   remote     = "0.0.0.0/0"
   tcp {
@@ -209,8 +209,8 @@ resource "ibm_is_security_group_rule" "vsi_sg_allow_imap_secure" {
 }
 
 resource "ibm_is_security_group_rule" "vsi_sg_allow_mysql" {
-  depends_on = [ibm_is_security_group.vsi_security_group]
-  group     = ibm_is_security_group.vsi_security_group.id
+  depends_on = [ibm_is_vpc.vsi_vpc.security_group]
+  group     = ibm_is_vpc.vsi_vpc.security_group.group_id
   direction = "inbound"
   remote     = "0.0.0.0/0"
   tcp {
@@ -222,8 +222,8 @@ resource "ibm_is_security_group_rule" "vsi_sg_allow_mysql" {
 //Security group rule Postgres
 
 resource "ibm_is_security_group_rule" "vsi_sg_allow_postgres" {
-  depends_on = [ibm_is_security_group.vsi_security_group]
-  group     = ibm_is_security_group.vsi_security_group.id
+  depends_on = [ibm_is_vpc.vsi_vpc.security_group]
+  group     = ibm_is_vpc.vsi_vpc.security_group.group_id
   direction = "inbound"
   remote     = "0.0.0.0/0"
   tcp {
@@ -235,8 +235,8 @@ resource "ibm_is_security_group_rule" "vsi_sg_allow_postgres" {
 //security group Domain Name Server TCP
 
 resource "ibm_is_security_group_rule" "vsi_sg_allow_dns" {
-  depends_on = [ibm_is_security_group.vsi_security_group]
-  group     = ibm_is_security_group.vsi_security_group.id
+  depends_on = [ibm_is_vpc.vsi_vpc.security_group]
+  group     = ibm_is_vpc.vsi_vpc.security_group.group_id
   direction = "inbound"
   remote     = "0.0.0.0/0"
   tcp {
@@ -246,8 +246,8 @@ resource "ibm_is_security_group_rule" "vsi_sg_allow_dns" {
 }
 
 resource "ibm_is_security_group_rule" "vsi_sg_allow_dns_udp" {
-  depends_on = [ibm_is_security_group.vsi_security_group]
-  group     = ibm_is_security_group.vsi_security_group.id
+  depends_on = [ibm_is_vpc.vsi_vpc.security_group]
+  group     = ibm_is_vpc.vsi_vpc.security_group.group_id
   direction = "inbound"
   remote     = "0.0.0.0/0"
   udp {
@@ -259,8 +259,8 @@ resource "ibm_is_security_group_rule" "vsi_sg_allow_dns_udp" {
 //security group rule plesk installer and plesk updates
 
 resource "ibm_is_security_group_rule" "vsi_sg_allow_plesk_installer" {
-  depends_on = [ibm_is_security_group.vsi_security_group]
-  group     = ibm_is_security_group.vsi_security_group.id
+  depends_on = [ibm_is_vpc.vsi_vpc.security_group]
+  group     = ibm_is_vpc.vsi_vpc.security_group.group_id
   direction = "inbound"
   remote     = "0.0.0.0/0"
   udp {
@@ -271,8 +271,8 @@ resource "ibm_is_security_group_rule" "vsi_sg_allow_plesk_installer" {
 
 //security group rule to allow all for outbound
 resource "ibm_is_security_group_rule" "vsi_sg_rule_out_all" {
-  depends_on = [ibm_is_security_group.vsi_security_group]
-  group     = ibm_is_security_group.vsi_security_group.id
+  depends_on = [ibm_is_vpc.vsi_vpc.security_group]
+  group     = ibm_is_vpc.vsi_vpc.security_group.group_id
   direction = "outbound"
   remote    = "0.0.0.0/0"
 }
@@ -288,7 +288,7 @@ resource "ibm_is_instance" "plesk_vsi" {
   primary_network_interface {
     name = "eth0"
     subnet = ibm_is_subnet.vsi_subnet.id
-    security_groups = [ibm_is_security_group.vsi_security_group.id]
+    security_groups = [ibm_is_vpc.vsi_vpc.security_group.group_id]
   }
   
   vpc  = ibm_is_subnet.vsi_subnet.vpc
