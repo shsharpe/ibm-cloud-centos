@@ -59,7 +59,7 @@ resource "ibm_is_subnet" "vsi_subnet"{
 ##############################################################################
 
 //security group
-resource "ibm_is_security_group" "vsi_security_group" {
+data "ibm_is_security_group" "vsi_security_group" {
   name           = var.vsi_security_group
   vpc            = ibm_is_vpc.vsi_vpc.id
   resource_group = ibm_is_subnet.vsi_subnet.resource_group
