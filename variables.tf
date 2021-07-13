@@ -64,4 +64,5 @@ variable "subnet" {
 
 variable "vpc" {
   default = "plesk-vpc"
+  description = "The name of the Virtual Private Cloud for the virtual server instance"
 }
