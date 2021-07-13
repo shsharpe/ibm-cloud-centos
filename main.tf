@@ -40,14 +40,14 @@ data "ibm_is_instance_profile" "vsi_profile" {
 ##############################################################################
 
 resource "ibm_is_vpc" "vsi_vpc" {
-  name = "plesk-vpc"
+  name = var.vpc
 }
 
 ##############################################################################
 #  - Create subnet
 ##############################################################################
 resource "ibm_is_subnet" "vsi_subnet"{
-   name = "plesk-subnet"
+   name = var.subnet
    zone = format("%s-%s", var.region, "1")
    vpc =  ibm_is_vpc.vsi_vpc.id
    total_ipv4_address_count = "256"

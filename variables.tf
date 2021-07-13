@@ -56,3 +56,12 @@ variable "floating_ip" {
   default = "plesk-floating-ip"
   description = "Public floating IP needed for internet access"
 }
+
+variable "subnet" {
+  default = "plesk-subnet"
+  description = "The name of the subnet for the virtual server instance."
+}
+
+variable "vpc" {
+  default = "plesk-vpc"
+}
